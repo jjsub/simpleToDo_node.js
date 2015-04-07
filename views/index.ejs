@@ -6,6 +6,31 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p><%= body %></p>
+    <!-- <p>Welcome to <%= title %></p> -->
+    <form method="POST" action="/todo">
+      <div>
+        title: <input type="text" id="todoTitle" name="title">
+      </div>
+      <div>
+      Description: <textarea id="todoDescription" name="description"></textarea>
+      </div>
+      <div>
+      Priority: (1-100): <input type="text" id="todoPriority" name="priority">
+      </div>
+
+      <div>
+        Complete by:<input type="text" id="todoCompleteBy" name="completeBy">
+      </div>
+      <div>
+      Complete: <input type="radio" id="todoComple" name="complete">
+      </div>
+
+      <div>
+        List your to do items here<hr>
+      </div>
+    </form>
+
+
   </body>
 </html>

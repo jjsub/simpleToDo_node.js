@@ -7,6 +7,40 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  console.log("Yay we are connection");
+});
+
+var toDoSchema = mongoose.Schema({
+    due_date:     Date,
+    timestamp:    { type: Date, default: Date.now },
+    descriptiom:  String,
+    title:        String,
+    priority:      Number,
+    complete:     Boolean
+});
+
+var ToDo = mongoose.model('ToDo', toDoSchema);
+var firstToDo = new ToDo({
+  due_date: Date.now(),
+  descriptiom:  "Do something",
+  title:        "Do it now",
+  priority:      10,
+  complete:      false
+
+});
+
+firstToDo.save(function (err, first) {
+  if (err){ 
+           return console.error(err);
+          }
+  console.log(first);
+});
 
 var app = express();
 

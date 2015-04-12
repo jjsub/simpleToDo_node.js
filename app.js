@@ -19,7 +19,7 @@ db.once('open', function (callback) {
 var toDoSchema = mongoose.Schema({
     due_date:     Date,
     timestamp:    { type: Date, default: Date.now },
-    descriptiom:  String,
+    description:  String,
     title:        String,
     priority:      Number,
     complete:     Boolean
@@ -28,7 +28,7 @@ var toDoSchema = mongoose.Schema({
 var ToDo = mongoose.model('ToDo', toDoSchema);
 var firstToDo = new ToDo({
   due_date: Date.now(),
-  descriptiom:  "Do something",
+  description:  "Do something",
   title:        "Do it now",
   priority:      10,
   complete:      false
@@ -42,6 +42,27 @@ firstToDo.save(function (err, first) {
   console.log(first);
 });
 
+
+//POST form **
+
+router.post('/', function(req, res){
+   new toDo({
+    due_date :    req.body.due_date,
+    todo_task :   req.body.task,
+    description : req.body.description,
+    priority:     req.body.priority,
+    //complete : false
+
+
+   }).save(function(err, task){
+    if(err){return console.error(err);}
+    console.log(task);
+   });
+res.redirect('todo');
+
+});
+
+//module.exports = router;
 var app = express();
 
 // view engine setup
